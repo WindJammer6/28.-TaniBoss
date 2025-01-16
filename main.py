@@ -173,14 +173,18 @@ elif(app_mode=="Pertanian Forum"):
     # Popover widget for answering a question
     with st.popover("Answer a Question"):  # Using expander for dropdown behavior
         answer_username = st.text_input("Your Name", key="answer_name")
-        question_to_answer = st.text_area("Question to Answer", key="question_to_answer")
+        temp_list = []
+        for i in range(len(st.session_state.forum_posts)):
+            if st.session_state.forum_posts:
+                temp_list.append(st.session_state.forum_posts[i]['question']) 
+        question_to_answer = st.selectbox('Question to Answer', temp_list)
         answer_message = st.text_area("Your Answer", key="answer_message")
         answer_submit = st.button("Post", key="answer_submit")
 
     # Handle posting a question
     if post_submit:
         if post_username.strip() and post_message.strip():
-            st.session_state.forum_posts.append({"user": post_username, "message": post_message, "type": "question"})
+            st.session_state.forum_posts.append({"user": post_username, "question": post_message, "answers": []})
             st.success("Question posted successfully!")
         else:
             st.error("Please fill in both fields.")
@@ -188,9 +192,9 @@ elif(app_mode=="Pertanian Forum"):
     # Handle posting an answer
     if answer_submit:
         if answer_username.strip() and answer_message.strip() and question_to_answer.strip():
-            st.session_state.forum_posts.append(
-                {"user": answer_username, "message": answer_message, "question": question_to_answer, "type": "answer"}
-            )
+            for i in st.session_state.forum_posts:
+                if i['question'] == question_to_answer:
+                    i['answers'].append(answer_message)
             st.success("Answer posted successfully!")
         else:
             st.error("Please fill in all fields.")
@@ -198,11 +202,10 @@ elif(app_mode=="Pertanian Forum"):
     # Display forum messages
     st.write('---')
     if st.session_state.forum_posts:
-        index = 1000
         for post in reversed(st.session_state.forum_posts):
-            index += 1
-            with st.expander(f"**{post['user']}**{post['message']}"):
-                st.write('Hi')
+            with st.expander(f"**{post['question']}** • From: {post['user']}"):
+                for i in st.session_state.forum_posts:
+                    st.write(f'{post['answers']} ({post[answer_username]}))
     else:
         st.info("No posts yet. Be the first to post a message!")
 
