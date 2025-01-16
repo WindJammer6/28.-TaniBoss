@@ -4,14 +4,77 @@ from streamlit_extras.let_it_rain import rain
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
+from scipy.optimize import minimize
+import requests
+import json
+import base64
 
-def model_prediction(test_image):
-    model = tf.keras.models.load_model("trained_plant_disease_model.keras")
-    image = tf.keras.preprocessing.image.load_img(test_image,target_size=(128,128))
-    input_arr = tf.keras.preprocessing.image.img_to_array(image)
-    input_arr = np.array([input_arr]) 
-    predictions = model.predict(input_arr)
-    return np.argmax(predictions) 
+# To add a local image to Streamlit website
+def get_image_base64(image_path):
+    """Encodes an image file to a base64 string for HTML rendering."""
+    with open(image_path, "rb") as img_file:
+        return base64.b64encode(img_file.read()).decode()
+
+# Path to your local logo image
+logo_path = "./ai_farmer_logo_edited.jpg"
+logo_base64 = get_image_base64(logo_path)
+
+
+# Initiating Chatbase stuffs
+url = 'https://www.chatbase.co/api/v1/chat'
+headers = {
+    'Authorization': 'Bearer 3c7b798b-c5fe-41a7-bdeb-f5d0b6f8536e',
+    'Content-Type': 'application/json'
+}
+
+# Initialize conversation history in session state
+if "conversation_history" not in st.session_state:
+    st.session_state.conversation_history = {
+        "messages": [],
+        "chatbotId": "wGS8ehg-39TolweihWY3w",
+        "stream": False,
+        "temperature": 0
+    }
+
+
+data = pd.read_csv("choy_sum_dataset.csv")
+
+# Convert the data into a DataFrame
+df = pd.DataFrame(data)
+
+# Separate the independent variables (X) and dependent variable (y)
+X = df.drop(columns=["Yield (g/m²)"])
+y = df["Yield (g/m²)"]
+
+# Train a multiple linear regression model
+multi_linear_regression_model = LinearRegression()
+multi_linear_regression_model.fit(X, y)
+
+# Define the negative of the regression model's prediction (we minimize it to maximize yield)
+def objective_function(variables):
+    # variables = [Temperature, Humidity, Light Intensity, Water pH, etc.]
+    input_data = pd.DataFrame([variables], columns=X.columns)
+    return -multi_linear_regression_model.predict(input_data)[0]
+
+# Define bounds for each variable
+bounds = [
+    (15, 30),  # Temperature range
+    (40, 80),  # Humidity range
+    (10000, 60000),  # Light Intensity range
+    (5.5, 7.0),  # Water pH range
+    (1.0, 2.5),  # Electrical Conductivity range
+    (100, 300),  # Nitrogen Concentration range
+    (50, 300),  # Plant Biomass range
+    (10, 50)    # Root Volume range
+]
+
+# Perform optimization
+result = minimize(objective_function, x0=[20, 60, 40000, 6.0, 1.5, 200, 100, 20], bounds=bounds)
+
+
+# Optimal conditions
+optimal_conditions = result.x
+print("Optimal Conditions:", optimal_conditions)
 
 def rain_emojis_of_water():
     rain(
@@ -41,7 +104,7 @@ cols = st.columns(2)
 # Sidebar codes #
 #################
 st.sidebar.title("Plant Disease Detection System for Sustainable Agriculture for Hydroponic Farming in Gunung Anyar, Surabaya, Indonesia🌱💧")
-st.sidebar.caption("Made by Group 5: Joshua, [Shelly](https://www.linkedin.com/in/ShellyWijayaOei/), [Kelly](https://www.linkedin.com/in/kelly-patricia-233a63241?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app), [Chua Xing Han](https://linktr.ee/cxinghan), [Cheah Hoe Teng](https://www.linkedin.com/in/hoe-teng-cheah-938111275/) and [Goh Jet Wei](https://www.linkedin.com/in/gohjetwei)")
+st.sidebar.caption("Made by Group 5: [Joshua](https://www.instagram.com/joshuaoliveryoung?igsh=dHpsanVveHIxZDVy&utm_source=qr), [Shelly](https://www.linkedin.com/in/ShellyWijayaOei/), [Kelly](https://www.linkedin.com/in/kelly-patricia-233a63241?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app), [Chua Xing Han](https://linktr.ee/cxinghan), [Cheah Hoe Teng](https://www.linkedin.com/in/hoe-teng-cheah-938111275/) and [Goh Jet Wei](https://www.linkedin.com/in/gohjetwei)")
 st.sidebar.caption("In collboration with:")
 
 sidebar_content = """
@@ -57,7 +120,7 @@ st.sidebar.caption("")
 st.sidebar.caption("")
 st.sidebar.caption("")
 
-app_mode = st.sidebar.selectbox("Select between 'CONTEXT' page and 'PREDICTIONS' page",["CONTEXT","PREDICTIONS"])
+app_mode = st.sidebar.selectbox("Select page",["CONTEXT","PREDICTIONS", "Pertanian Forum", "PetaniAI"])
 
 st.sidebar.caption("")
 st.sidebar.caption("")
@@ -86,52 +149,143 @@ if(app_mode=="CONTEXT"):
 
 elif(app_mode=="PREDICTIONS"):
     st.markdown("<h1 style='text-align: center;'>Plant Disease Detection System for Sustainable Agriculture Predictor", unsafe_allow_html=True)
-    st.
     test_image = st.file_uploader("Choose an Image:")
     if(st.button("Show Image")):
         st.image(test_image,width=4,use_column_width=True)
+
     if(st.button("Predict")):
-        st.snow()
-        st.write("Our Prediction")
-        result_index = model_prediction(test_image)
-        class_name = ['Apple___Apple_scab', 'Apple___Black_rot', 'Apple___Cedar_apple_rust', 'Apple___healthy',
-                    'Blueberry___healthy', 'Cherry_(including_sour)___Powdery_mildew', 
-                    'Cherry_(including_sour)___healthy', 'Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot', 
-                    'Corn_(maize)___Common_rust_', 'Corn_(maize)___Northern_Leaf_Blight', 'Corn_(maize)___healthy', 
-                    'Grape___Black_rot', 'Grape___Esca_(Black_Measles)', 'Grape___Leaf_blight_(Isariopsis_Leaf_Spot)', 
-                    'Grape___healthy', 'Orange___Haunglongbing_(Citrus_greening)', 'Peach___Bacterial_spot',
-                    'Peach___healthy', 'Pepper,_bell___Bacterial_spot', 'Pepper,_bell___healthy', 
-                    'Potato___Early_blight', 'Potato___Late_blight', 'Potato___healthy', 
-                    'Raspberry___healthy', 'Soybean___healthy', 'Squash___Powdery_mildew', 
-                    'Strawberry___Leaf_scorch', 'Strawberry___healthy', 'Tomato___Bacterial_spot', 
-                    'Tomato___Early_blight', 'Tomato___Late_blight', 'Tomato___Leaf_Mold', 
-                    'Tomato___Septoria_leaf_spot', 'Tomato___Spider_mites Two-spotted_spider_mite', 
-                    'Tomato___Target_Spot', 'Tomato___Tomato_Yellow_Leaf_Curl_Virus', 'Tomato___Tomato_mosaic_virus',
-                      'Tomato___healthy']
-        st.success("Model is Predicting it's a {}".format(class_name[result_index]))
+        print('hi')
 
-    data = pd.read_csv("choy_sum_dataset.csv")
+elif(app_mode=="Pertanian Forum"):
+    # Title of the Forum
+    st.title("Pertanian Forum")
 
-    # Convert the data into a DataFrame
-    df = pd.DataFrame(data)
+    # Initialize session state to store forum posts
+    if "forum_posts" not in st.session_state:
+        st.session_state.forum_posts = []
 
-    # Separate the independent variables (X) and dependent variable (y)
-    X = df.drop(columns=["Yield (g/m²)"])
-    y = df["Yield (g/m²)"]
+    # Popover widget for posting a question
+    with st.popover("Post a Question"):  # Using expander as Streamlit doesn't have `st.popover`
+        post_username = st.text_input("Your Name", key="post_name")
+        post_message = st.text_area("Your Question", key="post_message")
+        post_submit = st.button("Post", key="post_submit")
 
-    # Train a multiple linear regression model
-    multi_linear_regression_model = LinearRegression()
-    multi_linear_regression_model.fit(X, y)
+    # Popover widget for answering a question
+    with st.popover("Answer a Question"):  # Using expander for dropdown behavior
+        answer_username = st.text_input("Your Name", key="answer_name")
+        question_to_answer = st.text_area("Question to Answer", key="question_to_answer")
+        answer_message = st.text_area("Your Answer", key="answer_message")
+        answer_submit = st.button("Post", key="answer_submit")
 
-    # Predict the values
-    y_pred = multi_linear_regression_model.predict()
+    # Handle posting a question
+    if post_submit:
+        if post_username.strip() and post_message.strip():
+            st.session_state.forum_posts.append({"user": post_username, "message": post_message, "type": "question"})
+            st.success("Question posted successfully!")
+        else:
+            st.error("Please fill in both fields.")
 
-    # Print the coefficients and performance metrics
-    print("Coefficients:", multi_linear_regression_model.coef_)
-    print("Intercept:", multi_linear_regression_model.intercept_)
-    print("Mean Squared Error (MSE):", mean_squared_error(y, y_pred))
-    print("R² Score:", r2_score(y, y_pred))
+    # Handle posting an answer
+    if answer_submit:
+        if answer_username.strip() and answer_message.strip() and question_to_answer.strip():
+            st.session_state.forum_posts.append(
+                {"user": answer_username, "message": answer_message, "question": question_to_answer, "type": "answer"}
+            )
+            st.success("Answer posted successfully!")
+        else:
+            st.error("Please fill in all fields.")
 
-    # Optional: Display predictions alongside actual values
-    df["Predicted Yield"] = y_pred
-    print("\nData with Predicted Yields:\n", df)
+    # Display forum messages
+    st.write('---')
+    if st.session_state.forum_posts:
+        index = 1000
+        for post in reversed(st.session_state.forum_posts):
+            index += 1
+            with st.expander(f"**{post['user']}**{post['message']}"):
+                st.write('Hi')
+    else:
+        st.info("No posts yet. Be the first to post a message!")
+
+elif app_mode == "PetaniAI":
+    # Streamlit app setup
+    st.title("PetaniAI")
+    st.subheader("Ask me anything!")
+
+    # Input box for user query
+    user_input = st.text_input("Your message:")
+
+    # Submit button
+    if st.button("Send"):
+        if user_input.strip():
+            # Append the user message to session state
+            st.session_state.conversation_history["messages"].append({"content": user_input, "role": "user"})
+
+            # Generate response using the Chatbase API
+            response = requests.post(
+                url, 
+                headers=headers, 
+                data=json.dumps(st.session_state.conversation_history)
+            )
+            json_data = response.json()
+
+            # Handle response
+            if response.status_code == 200:
+                # Append the AI response to session state
+                st.session_state.conversation_history["messages"].append(
+                    {"content": json_data['text'], "role": "assistant"}
+                )
+            else:
+                st.error(f"Error: {json_data.get('message', 'Unknown error')}. Please try again.")
+
+    # Display the conversation history
+    for msg in st.session_state.conversation_history["messages"]:
+        if msg["role"] == "user":
+            # Right-aligned user messages
+            st.markdown(
+                f"""
+                <div style="text-align: right;">
+                    <strong>You:</strong> {msg["content"]}
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+        elif msg["role"] == "assistant":
+            # Left-aligned AI messages with a logo
+            st.markdown(
+                f"""
+                <div style="display: flex; align-items: center; text-align: left;">
+                    <img src="data:image/png;base64,{logo_base64}" alt="logo" style="width: 40px; height: 40px; margin-right: 10px;">
+                    <div>
+                        <strong></strong> {msg["content"]}
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+            st.write('---')
+
+
+    # # Convert the data into a DataFrame
+    # df = pd.DataFrame(data)
+
+    # # Separate the independent variables (X) and dependent variable (y)
+    # X = df.drop(columns=["Yield (g/m²)"])
+    # y = df["Yield (g/m²)"]
+
+    # # Train a multiple linear regression model
+    # multi_linear_regression_model = LinearRegression()
+    # multi_linear_regression_model.fit(X, y)
+
+    # # Predict the values
+    # y_pred = multi_linear_regression_model.predict()
+
+    # # Print the coefficients and performance metrics
+    # print("Coefficients:", multi_linear_regression_model.coef_)
+    # print("Intercept:", multi_linear_regression_model.intercept_)
+    # print("Mean Squared Error (MSE):", mean_squared_error(y, y_pred))
+    # print("R² Score:", r2_score(y, y_pred))
+
+    # # Optional: Display predictions alongside actual values
+    # df["Predicted Yield"] = y_pred
+    # print("\nData with Predicted Yields:\n", df)
