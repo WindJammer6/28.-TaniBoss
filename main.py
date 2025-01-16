@@ -133,11 +133,21 @@ if(app_mode=="Context"):
              provide secondary advice to their current hydroponic farming techniques.""")
 
 elif(app_mode=="Predictor"):
-    st.markdown("<h1 style='text-align: center;'>FarmsOnly Predictor and Recommendation Model", unsafe_allow_html=True)
-    test_image = st.file_uploader("Choose an Image:")
-    if(st.button("Show Image")):
-        st.image(test_image,width=4,use_column_width=True)
+    st.markdown("<h1 style='text-align: center;'>FarmsOnly Predictor and Recommendation Model 🧠🤖", unsafe_allow_html=True)
+    st.header("Train the Model 🏋️")
+    st.caption("You can enter today's conditions of the farm to further train the model to improve its prediction accuracy!")
+    side_left_col, side_right_col = st.columns(2)
+    rainfall = side_left_col.text_input('Rainfall (ppm):')
+    side_left_col.text_input('Temperature (in °C):')
+    side_left_col.text_input('Nitrogen (g):')
+    side_right_col.text_input('Phosphorus (g):')
+    side_right_col.text_input('Potassium (g):')
+    side_right_col.text_input('Yield (g/m²):')
+    if side_left_col.button('Submit'):
+        st.success("Today's condition the farm has been received by the model!")
 
+    st.write("---")
+    st.header("Predict with Model")
     if(st.button("Predict")):
         print('hi')
 
