@@ -24,6 +24,14 @@ logo_base64_user = get_image_base64(logo_path_user)
 logo_base64_farmer_ai = get_image_base64(logo_path_farmer_ai)
 logo_base64_site_analysis = get_image_base64(logo_path_site_analysis)
 
+def rain_emojis_of_water():
+    rain(
+        emoji="💧",
+        font_size=40,
+        falling_speed=1,
+        animation_length=1000,
+    )
+
 # Initiating Chatbase stuffs
 url = 'https://www.chatbase.co/api/v1/chat'
 headers = {
