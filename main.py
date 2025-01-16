@@ -19,9 +19,10 @@ def get_image_base64(image_path):
 # Path to your local logo image
 logo_path_user = "./user_logo.jpg"
 logo_path_farmer_ai = "./ai_farmer_logo_edited.jpg"
+logo_path_site_analysis = "./siteanalysis_hydroponic.jpg"
 logo_base64_user = get_image_base64(logo_path_user)
 logo_base64_farmer_ai = get_image_base64(logo_path_farmer_ai)
-
+logo_base64_site_analysis = get_image_base64(logo_path_site_analysis)
 
 # Initiating Chatbase stuffs
 url = 'https://www.chatbase.co/api/v1/chat'
@@ -38,54 +39,6 @@ if "conversation_history" not in st.session_state:
         "stream": False,
         "temperature": 0
     }
-
-
-data = pd.read_csv("choy_sum_dataset.csv")
-
-# Convert the data into a DataFrame
-df = pd.DataFrame(data)
-
-# Separate the independent variables (X) and dependent variable (y)
-X = df.drop(columns=["Yield (g/m²)"])
-y = df["Yield (g/m²)"]
-
-# Train a multiple linear regression model
-multi_linear_regression_model = LinearRegression()
-multi_linear_regression_model.fit(X, y)
-
-# Define the negative of the regression model's prediction (we minimize it to maximize yield)
-def objective_function(variables):
-    # variables = [Temperature, Humidity, Light Intensity, Water pH, etc.]
-    input_data = pd.DataFrame([variables], columns=X.columns)
-    return -multi_linear_regression_model.predict(input_data)[0]
-
-# Define bounds for each variable
-bounds = [
-    (15, 30),  # Temperature range
-    (40, 80),  # Humidity range
-    (10000, 60000),  # Light Intensity range
-    (5.5, 7.0),  # Water pH range
-    (1.0, 2.5),  # Electrical Conductivity range
-    (100, 300),  # Nitrogen Concentration range
-    (50, 300),  # Plant Biomass range
-    (10, 50)    # Root Volume range
-]
-
-# Perform optimization
-result = minimize(objective_function, x0=[20, 60, 40000, 6.0, 1.5, 200, 100, 20], bounds=bounds)
-
-
-# Optimal conditions
-optimal_conditions = result.x
-print("Optimal Conditions:", optimal_conditions)
-
-def rain_emojis_of_water():
-    rain(
-        emoji="💧",
-        font_size=40,
-        falling_speed=1,
-        animation_length=1000,
-    )
 
 st.set_page_config(page_title='Snowflake', layout='wide',
                 #    initial_sidebar_state=st.session_state.get('sidebar_state', 'collapsed'),
@@ -106,7 +59,7 @@ cols = st.columns(2)
 #################
 # Sidebar codes #
 #################
-st.sidebar.title("Plant Disease Detection System for Sustainable Agriculture for Hydroponic Farming in Gunung Anyar, Surabaya, Indonesia🌱💧")
+st.sidebar.title("FarmsOnly🌱💧")
 st.sidebar.caption("Made by Group 5: [Joshua](https://www.instagram.com/joshuaoliveryoung?igsh=dHpsanVveHIxZDVy&utm_source=qr), [Shelly](https://www.linkedin.com/in/ShellyWijayaOei/), [Kelly](https://www.linkedin.com/in/kelly-patricia-233a63241?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app), [Chua Xing Han](https://linktr.ee/cxinghan), [Cheah Hoe Teng](https://www.linkedin.com/in/hoe-teng-cheah-938111275/) and [Goh Jet Wei](https://www.linkedin.com/in/gohjetwei)")
 st.sidebar.caption("In collboration with:")
 
@@ -123,15 +76,21 @@ st.sidebar.caption("")
 st.sidebar.caption("")
 st.sidebar.caption("")
 
-app_mode = st.sidebar.selectbox("Select page",["CONTEXT","PREDICTIONS", "Pertanian Forum", "PetaniAI"])
+app_mode = st.sidebar.selectbox("Select page",["Context","Predictor", "Pertanian Forum", "PetaniAI"])
 
 st.sidebar.caption("")
 st.sidebar.caption("")
 st.sidebar.caption("")
 
 st.sidebar.success("""
-                **What can this Streamlit website do?**  
-                Allows us to make predictions on... See more in the 'CONTEXT' page
+                **What does FarmsOnly do?**  
+                FarmsOnly is targeted at local farmers in Gunung Anyar, Surabaya, Indonesia, to help them make better decisions in their hydroponic farming to optimise crop yield.
+                FarmsOnly provides a multitude of features including:
+                - **Our flagship prediction and recommendation machine learning model**
+                - **Pertanian forum**
+                - **PertaniAI**
+                   
+                to help local farmers improve their crop yield based on their current farming practices
 """
 )
 
@@ -144,14 +103,29 @@ with st.sidebar.expander("Acknowledgments"):
 ##################
 # Mainpage codes #
 ##################
-if(app_mode=="CONTEXT"):
+if(app_mode=="Context"):
     st.markdown("<h1 style='text-align: center;'>Context of the Problem", unsafe_allow_html=True)
-    st.write("I found out that they have a little problem with their hydroponic plants. Their spinach sometimes wont grow well. The person taking care of the plants still couldnt figure out the right nutrition for the spinach to grow well all the time. So maybe create a machine learning web to give them recommendation on what to do w/ the plants, considering the weather and other factors lol")
-    st.markdown("<h2 style='text-align: center;'>Our Personas 👨‍👨‍👦‍👦", unsafe_allow_html=True)
+    st.markdown(
+        f"""
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <img src="data:image/png;base64,{logo_base64_site_analysis}" alt="logo" style="width: 40%;">
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    st.write('')
+    st.write("""After our visit to Edufarm, Gunung Anyar, we found that the farmers were facing a critical issue regarding their hydroponic farming 
+             techniques. Certain crops such as choy sum, kang kong have not been yielding well, causing them much pain and frustration. Despite 
+             making attempts to improve the conditions and trying suggestions found on the internet, they are still unable to solve the problem, 
+             causing their crops to die prematurely, affecting yield.""")
+             
+    st.write("""Hence, we present **FarmsOnly**, an innovative solution that utilises machine learning techniques to generate suggestions for optimising 
+             hydroponic techniques, based on the conditions and yield at Gunung Anyar. Additionally, it offers a platform for farmers to communicate with one another, 
+             allowing them to ask for and share advice on localised farming techniques. Lastly, it offers an expert hydroponic farming AI assistant to 
+             provide secondary advice to their current hydroponic farming techniques.""")
 
-
-elif(app_mode=="PREDICTIONS"):
-    st.markdown("<h1 style='text-align: center;'>Plant Disease Detection System for Sustainable Agriculture Predictor", unsafe_allow_html=True)
+elif(app_mode=="Predictor"):
+    st.markdown("<h1 style='text-align: center;'>FarmsOnly Predictor and Recommendation Model", unsafe_allow_html=True)
     test_image = st.file_uploader("Choose an Image:")
     if(st.button("Show Image")):
         st.image(test_image,width=4,use_column_width=True)
