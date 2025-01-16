@@ -4,5 +4,4 @@ streamlit_extras
 pandas
 scikit-learn
 requests
-base64
 datetime
