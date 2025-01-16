@@ -204,8 +204,9 @@ elif(app_mode=="Pertanian Forum"):
     if st.session_state.forum_posts:
         for post in reversed(st.session_state.forum_posts):
             with st.expander(f"**{post['question']}** • From: {post['user']}"):
-                for i in st.session_state.forum_posts:
-                    st.write(f'{post['answers']} ({post[answer_username]}))
+                for i in range(len(st.session_state.forum_posts)):
+                    temp_answer_posts = post['answers']
+                    st.write(f'- {temp_answer_posts} ({answer_username})')
     else:
         st.info("No posts yet. Be the first to post a message!")
 
