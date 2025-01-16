@@ -8,6 +8,7 @@ from scipy.optimize import minimize
 import requests
 import json
 import base64
+from datetime import datetime
 
 # To add a local image to Streamlit website
 def get_image_base64(image_path):
@@ -16,8 +17,10 @@ def get_image_base64(image_path):
         return base64.b64encode(img_file.read()).decode()
 
 # Path to your local logo image
-logo_path = "./ai_farmer_logo_edited.jpg"
-logo_base64 = get_image_base64(logo_path)
+logo_path_user = "./user_logo.jpg"
+logo_path_farmer_ai = "./ai_farmer_logo_edited.jpg"
+logo_base64_user = get_image_base64(logo_path_user)
+logo_base64_farmer_ai = get_image_base64(logo_path_farmer_ai)
 
 
 # Initiating Chatbase stuffs
@@ -158,20 +161,20 @@ elif(app_mode=="PREDICTIONS"):
 
 elif(app_mode=="Pertanian Forum"):
     # Title of the Forum
-    st.title("Pertanian Forum")
+    st.title("Pertanian Forum 🗣️")
 
     # Initialize session state to store forum posts
     if "forum_posts" not in st.session_state:
         st.session_state.forum_posts = []
 
     # Popover widget for posting a question
-    with st.popover("Post a Question"):  # Using expander as Streamlit doesn't have `st.popover`
+    with st.popover("Post a Question!"):  # Using expander as Streamlit doesn't have `st.popover`
         post_username = st.text_input("Your Name", key="post_name")
         post_message = st.text_area("Your Question", key="post_message")
         post_submit = st.button("Post", key="post_submit")
 
     # Popover widget for answering a question
-    with st.popover("Answer a Question"):  # Using expander for dropdown behavior
+    with st.popover("Answer a Question!"):  # Using expander for dropdown behavior
         answer_username = st.text_input("Your Name", key="answer_name")
         temp_list = []
         for i in range(len(st.session_state.forum_posts)):
@@ -183,8 +186,11 @@ elif(app_mode=="Pertanian Forum"):
 
     # Handle posting a question
     if post_submit:
+        current_datetime = datetime.now()
+        formatted_datetime = current_datetime.strftime("%Y-%m-%d %H:%M")
+
         if post_username.strip() and post_message.strip():
-            st.session_state.forum_posts.append({"user": post_username, "question": post_message, "answers": []})
+            st.session_state.forum_posts.append({"user": post_username, "question": post_message, "answers": [], 'datetime': formatted_datetime})
             st.success("Question posted successfully!")
         else:
             st.error("Please fill in both fields.")
@@ -201,12 +207,15 @@ elif(app_mode=="Pertanian Forum"):
 
     # Display forum messages
     st.write('---')
+    st.header('Posts')
+
     if st.session_state.forum_posts:
         for post in reversed(st.session_state.forum_posts):
-            with st.expander(f"**{post['question']}** • From: {post['user']}"):
-                for i in range(len(st.session_state.forum_posts)):
-                    temp_answer_posts = post['answers']
-                    st.write(f'- {temp_answer_posts} ({answer_username})')
+            with st.expander(f"**{post['question']}** • From: {post['user']} • On: {post['datetime']}"):
+                st.write('Responses:')
+                for i in range(len(post['answers'])):
+                    temp_answer_posts = post['answers'][i]
+                    st.write(f'- {temp_answer_posts} (From: {answer_username})')
     else:
         st.info("No posts yet. Be the first to post a message!")
 
@@ -247,8 +256,11 @@ elif app_mode == "PetaniAI":
             # Right-aligned user messages
             st.markdown(
                 f"""
-                <div style="text-align: right;">
-                    <strong>You:</strong> {msg["content"]}
+                <div style="display: flex; justify-content: flex-end; align-items: center; text-align: right;">
+                    <div style="margin-right: 10px;">
+                        {msg["content"]}
+                    </div>
+                    <img src="data:image/png;base64,{logo_base64_user}" alt="logo" style="width: 40px; height: 40px;">
                 </div>
                 """,
                 unsafe_allow_html=True,
@@ -258,7 +270,7 @@ elif app_mode == "PetaniAI":
             st.markdown(
                 f"""
                 <div style="display: flex; align-items: center; text-align: left;">
-                    <img src="data:image/png;base64,{logo_base64}" alt="logo" style="width: 40px; height: 40px; margin-right: 10px;">
+                    <img src="data:image/png;base64,{logo_base64_farmer_ai}" alt="logo" style="width: 40px; height: 40px; margin-right: 10px;">
                     <div>
                         <strong></strong> {msg["content"]}
                     </div>
