@@ -112,7 +112,7 @@ with st.sidebar.expander("Acknowledgments"):
 # Mainpage codes #
 ##################
 if(app_mode=="Context"):
-    st.markdown("<h1 style='text-align: center;'>Context of the Problem", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center;'>Why FarmsOnly?", unsafe_allow_html=True)
     st.markdown(
         f"""
         <div style="display: flex; justify-content: center; align-items: center;">
