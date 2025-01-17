@@ -1,12 +1,11 @@
 import matplotlib.pyplot as plt
 import streamlit as st
 import numpy as np
-from streamlit_extras.let_it_rain import rain
+# from streamlit_extras.let_it_rain import rain
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split  
 from sklearn.metrics import mean_squared_error, r2_score
-from scipy.optimize import minimize
 import requests
 import json
 import base64
@@ -127,15 +126,17 @@ logo_base64_user = get_image_base64(logo_path_user)
 logo_base64_farmer_ai = get_image_base64(logo_path_farmer_ai)
 logo_base64_site_analysis = get_image_base64(logo_path_site_analysis)
 
-# Rain effect
-def rain_emojis_of_water():
-    rain(
-        emoji="💧",
-        font_size=40,
-        falling_speed=1,
-        animation_length=1000,
-    )
-rain_emojis_of_water()
+st.balloons()
+
+# # Rain effect
+# def rain_emojis_of_water():
+#     rain(
+#         emoji="💧",
+#         font_size=40,
+#         falling_speed=1,
+#         animation_length=1000,
+#     )
+# rain_emojis_of_water()
 
 # Initiating Chatbase stuffs
 url = 'https://www.chatbase.co/api/v1/chat'
