@@ -3,12 +3,111 @@ import numpy as np
 from streamlit_extras.let_it_rain import rain
 import pandas as pd
 from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split  
 from sklearn.metrics import mean_squared_error, r2_score
 from scipy.optimize import minimize
 import requests
 import json
 import base64
 from datetime import datetime
+
+########################
+# Administrative codes #
+########################
+st.set_page_config(page_title='Snowflake', layout='wide',
+                #    initial_sidebar_state=st.session_state.get('sidebar_state', 'collapsed'),
+)
+sidebar_content = """
+<div style="display: flex; justify-content: center; align-items: center;">
+    <img src="https://toagriculture.com/wp-content/uploads/2022/09/Plant-diseases.jpg" width="1000">
+</div>
+"""
+
+st.markdown(sidebar_content, unsafe_allow_html=True)
+
+cols = st.columns(2)
+
+
+# //////////////////////////////////////////////////////////////////////
+
+
+# Preparing the dataset, and training a Multiple Linear Regression model with the dataset
+# Load the dataset
+file_path = "crop_yield_dataset.csv"
+data = pd.read_csv(file_path)
+
+# Calculate the average yield for the crop
+avg_yield = data['Yield (Q/acre)'].mean()
+    
+# Filter rows with yield above the average
+filtered_data = data[data['Yield (Q/acre)'] > avg_yield].head(250)
+
+# Define features (X) and target (y)
+X = filtered_data[['Rain Fall (mm)', 'Nitrogen (N)', 
+                    'Phosphorus (P)', 'Potassium (K)']]  # Features
+# X = filtered_data[['Rain Fall (mm)', 'Temperature', 'Nitrogen (N)', 
+#                     'Phosphorus (P)', 'Potassium (K)']]  # Features
+y = filtered_data['Yield (Q/acre)']  # Target
+
+# Split data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Initialize the model
+model = LinearRegression()
+
+# Train the model
+model.fit(X_train, y_train)
+
+# Make predictions
+y_pred = model.predict(X_test)
+
+# Evaluate the model
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+# Print results
+print(f"Mean Squared Error (MSE): {mse:.2f}")
+print(f"R-squared (R2): {r2:.2f}")
+
+# Display coefficients and intercept
+print("Coefficients:", model.coef_)
+print("Intercept:", model.intercept_)
+
+
+# //////////////////////////////////////////////////////////////////////
+
+
+# Define function to separate into quartiles and provide recommendations
+def analyze_and_recommend(data, farmer_input):
+    
+    # Sort data by yield and select the upper half for training
+    # upper_half = data[data["Yield (Q/acre)"] >= data["Yield (Q/acre)"].median()]
+    
+    # Compute quartile ranges for the upper half
+    quartiles = pd.qcut(data["Yield (Q/acre)"], q=4, labels=["Q1", "Q2", "Q3", "Q4"])
+    data["Quartile"] = quartiles
+    
+    # Select the highest quartile (Q4: 75%–100% yield)
+    highest_quartile = data[data["Quartile"] == "Q4"]
+    
+    # Compute mean yield and feature values for the highest quartile
+    mean_values = highest_quartile.mean()
+    mean_yield = mean_values["Yield (Q/acre)"]
+    
+    # Compare farmer's input to mean values and generate recommendations
+    recommendations = {}
+    for feature in farmer_input.keys():
+        farmer_value = farmer_input[feature]
+        ideal_value = mean_values[feature]
+        if farmer_value < ideal_value - 0.05 * ideal_value:
+            recommendations[feature] = f"Increase {feature} to around {ideal_value:.2f}."
+        elif farmer_value > ideal_value + 0.05 * ideal_value:
+            recommendations[feature] = f"Decrease {feature} to around {ideal_value:.2f}."
+        else:
+            recommendations[feature] = f"{feature} is optimal."
+    
+    return mean_yield, mean_values, recommendations
+
 
 # To add a local image to Streamlit website
 def get_image_base64(image_path):
@@ -24,6 +123,7 @@ logo_base64_user = get_image_base64(logo_path_user)
 logo_base64_farmer_ai = get_image_base64(logo_path_farmer_ai)
 logo_base64_site_analysis = get_image_base64(logo_path_site_analysis)
 
+# Rain effect
 def rain_emojis_of_water():
     rain(
         emoji="💧",
@@ -31,6 +131,7 @@ def rain_emojis_of_water():
         falling_speed=1,
         animation_length=1000,
     )
+rain_emojis_of_water()
 
 # Initiating Chatbase stuffs
 url = 'https://www.chatbase.co/api/v1/chat'
@@ -38,7 +139,6 @@ headers = {
     'Authorization': 'Bearer 3c7b798b-c5fe-41a7-bdeb-f5d0b6f8536e',
     'Content-Type': 'application/json'
 }
-
 # Initialize conversation history in session state
 if "conversation_history" not in st.session_state:
     st.session_state.conversation_history = {
@@ -47,21 +147,6 @@ if "conversation_history" not in st.session_state:
         "stream": False,
         "temperature": 0
     }
-
-st.set_page_config(page_title='Snowflake', layout='wide',
-                #    initial_sidebar_state=st.session_state.get('sidebar_state', 'collapsed'),
-)
-sidebar_content = """
-<div style="display: flex; justify-content: center; align-items: center;">
-    <img src="https://toagriculture.com/wp-content/uploads/2022/09/Plant-diseases.jpg" width="1000">
-</div>
-"""
-
-st.markdown(sidebar_content, unsafe_allow_html=True)
-
-rain_emojis_of_water()
-
-cols = st.columns(2)
 
 
 #################
@@ -108,9 +193,10 @@ with st.sidebar.expander("Acknowledgments"):
     """)
 
 
-##################
-# Mainpage codes #
-##################
+
+######################
+# Context page codes #
+######################
 if(app_mode=="Context"):
     st.markdown("<h1 style='text-align: center;'>Why FarmsOnly?", unsafe_allow_html=True)
     st.markdown(
@@ -132,25 +218,60 @@ if(app_mode=="Context"):
              allowing them to ask for and share advice on localised farming techniques. Lastly, it offers an expert hydroponic farming AI assistant to 
              provide secondary advice to their current hydroponic farming techniques.""")
 
+########################
+# Predictor page codes #
+########################
 elif(app_mode=="Predictor"):
-    st.markdown("<h1 style='text-align: center;'>FarmsOnly Predictor and Recommendation Model 🧠🤖", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center;'>Predictor and Recommendation Model 🧠🤖", unsafe_allow_html=True)
     st.header("Train the Model 🏋️")
     st.caption("You can enter today's conditions of the farm to further train the model to improve its prediction accuracy!")
-    side_left_col, side_right_col = st.columns(2)
-    rainfall = side_left_col.text_input('Rainfall (ppm):')
-    side_left_col.text_input('Temperature (in °C):')
-    side_left_col.text_input('Nitrogen (g):')
-    side_right_col.text_input('Phosphorus (g):')
-    side_right_col.text_input('Potassium (g):')
-    side_right_col.text_input('Yield (g/m²):')
-    if side_left_col.button('Submit'):
+    side_left_col_train, side_right_col_train = st.columns(2)
+    rainfall_train = side_left_col_train.text_input('Rainfall (ppm):')
+    # temperature_train = side_left_col_train.text_input('Temperature (in °C):')
+    nitrogen_train = side_left_col_train.text_input('Nitrogen (g):')
+    phosphorus_train = side_right_col_train.text_input('Phosphorus (g):')
+    potassium_train = side_right_col_train.text_input('Potassium (g):')
+    yield_train = side_left_col_train.text_input('Yield (g/m²):')
+
+    if side_left_col_train.button('Submit'):
         st.success("Today's condition the farm has been received by the model!")
 
     st.write("---")
-    st.header("Predict with Model")
-    if(st.button("Predict")):
-        print('hi')
+    st.header("Predict with Model 📋")
+    st.caption("You can enter today's conditions of the farm to further train the model to improve its prediction accuracy!")
+    side_left_col_predict, side_right_col_predict = st.columns(2)
+    rainfall_predict = side_left_col_predict.text_input('Rainfall (ppm):', key=100)
+    # temperature_predict = side_left_col_predict.text_input('Temperature (in °C):', key=200)
+    nitrogen_predict = side_left_col_predict.text_input('Nitrogen (g):', key=300)
+    phosphorus_predict = side_right_col_predict.text_input('Phosphorus (g):', key=400)
+    potassium_predict = side_right_col_predict.text_input('Potassium (g):', key=500)
 
+    if(st.button("Predict")):      
+        st.success("Success!")
+
+        farmer_input_conditions = {
+            'Rain Fall (mm)': int(rainfall_predict),
+            # 'Temperature': int(temperature_predict),
+            'Nitrogen (N)': int(nitrogen_predict),
+            'Phosphorus (P)': int(phosphorus_predict),
+            'Potassium (K)': int(potassium_predict)
+        }
+
+        # Analyze data and provide recommendations
+        mean_yield, mean_values, recommendations = analyze_and_recommend(data, farmer_input_conditions)
+
+        # Display results
+        st.write(f"Mean Yield for the highest quartile of crop: {mean_yield:.2f}")
+        st.write("\nFeature values for the mean yield of the highest quartile:")
+        st.write(mean_values)
+        st.write("\nRecommendations for improving yield:")
+        for feature, recommendation in recommendations.items():
+            st.write(f"- {recommendation}")
+
+
+##############################
+# Pertanian forum page codes #
+##############################
 elif(app_mode=="Pertanian Forum"):
     # Title of the Forum
     st.title("Pertanian Forum 🗣️")
@@ -211,6 +332,9 @@ elif(app_mode=="Pertanian Forum"):
     else:
         st.info("No posts yet. Be the first to post a message!")
 
+########################
+# PertaniAI page codes #
+########################
 elif app_mode == "PetaniAI":
     # Streamlit app setup
     st.title("PetaniAI")
@@ -272,28 +396,3 @@ elif app_mode == "PetaniAI":
             )
 
             st.write('---')
-
-
-    # # Convert the data into a DataFrame
-    # df = pd.DataFrame(data)
-
-    # # Separate the independent variables (X) and dependent variable (y)
-    # X = df.drop(columns=["Yield (g/m²)"])
-    # y = df["Yield (g/m²)"]
-
-    # # Train a multiple linear regression model
-    # multi_linear_regression_model = LinearRegression()
-    # multi_linear_regression_model.fit(X, y)
-
-    # # Predict the values
-    # y_pred = multi_linear_regression_model.predict()
-
-    # # Print the coefficients and performance metrics
-    # print("Coefficients:", multi_linear_regression_model.coef_)
-    # print("Intercept:", multi_linear_regression_model.intercept_)
-    # print("Mean Squared Error (MSE):", mean_squared_error(y, y_pred))
-    # print("R² Score:", r2_score(y, y_pred))
-
-    # # Optional: Display predictions alongside actual values
-    # df["Predicted Yield"] = y_pred
-    # print("\nData with Predicted Yields:\n", df)
