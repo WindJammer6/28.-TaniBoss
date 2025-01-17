@@ -156,7 +156,7 @@ if "conversation_history" not in st.session_state:
 #################
 # Sidebar codes #
 #################
-st.sidebar.title("FarmsOnly🌱💧")
+st.sidebar.title("TaniBoss!🌱💧")
 st.sidebar.caption("Made by Group 5: [Joshua](https://www.instagram.com/joshuaoliveryoung?igsh=dHpsanVveHIxZDVy&utm_source=qr), [Shelly](https://www.linkedin.com/in/ShellyWijayaOei/), [Kelly](https://www.linkedin.com/in/kelly-patricia-233a63241?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app), [Chua Xing Han](https://linktr.ee/cxinghan), [Cheah Hoe Teng](https://www.linkedin.com/in/hoe-teng-cheah-938111275/) and [Goh Jet Wei](https://www.linkedin.com/in/gohjetwei)")
 st.sidebar.caption("In collboration with:")
 
@@ -180,9 +180,9 @@ st.sidebar.caption("")
 st.sidebar.caption("")
 
 st.sidebar.success("""
-                **What does FarmsOnly do?**  
-                FarmsOnly is targeted at local farmers in Gunung Anyar, Surabaya, Indonesia, to help them make better decisions in their hydroponic farming to optimise crop yield.
-                FarmsOnly provides a multitude of features including:
+                **What does TaniBoss! do?**  
+                TaniBoss! is targeted at local farmers in Gunung Anyar, Surabaya, Indonesia, to help them make better decisions in their hydroponic farming to optimise crop yield.
+                TaniBoss! provides a multitude of features including:
                 - **Our flagship prediction and recommendation machine learning model**
                 - **Pertanian forum**
                 - **PertaniAI**
@@ -202,7 +202,7 @@ with st.sidebar.expander("Acknowledgments"):
 # Context page codes #
 ######################
 if(app_mode=="Context"):
-    st.markdown("<h1 style='text-align: center;'>Why FarmsOnly?", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center;'>Why TaniBoss?", unsafe_allow_html=True)
     st.markdown(
         f"""
         <div style="display: flex; justify-content: center; align-items: center;">
@@ -217,7 +217,7 @@ if(app_mode=="Context"):
              making attempts to improve the conditions and trying suggestions found on the internet, they are still unable to solve the problem, 
              causing their crops to die prematurely, affecting yield.""")
              
-    st.write("""Hence, we present **FarmsOnly**, an innovative solution that utilises machine learning techniques to generate suggestions for optimising 
+    st.write("""Hence, we present **TaniBoss!**, an innovative solution that utilises machine learning techniques to generate suggestions for optimising 
              hydroponic techniques, based on the conditions and yield at Gunung Anyar. Additionally, it offers a platform for farmers to communicate with one another, 
              allowing them to ask for and share advice on localised farming techniques. Lastly, it offers an expert hydroponic farming AI assistant to 
              provide secondary advice to their current hydroponic farming techniques.""")
