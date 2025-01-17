@@ -126,7 +126,7 @@ logo_base64_user = get_image_base64(logo_path_user)
 logo_base64_farmer_ai = get_image_base64(logo_path_farmer_ai)
 logo_base64_site_analysis = get_image_base64(logo_path_site_analysis)
 
-st.balloons()
+# st.balloons()
 
 # # Rain effect
 # def rain_emojis_of_water():
@@ -174,7 +174,7 @@ st.sidebar.caption("")
 st.sidebar.caption("")
 st.sidebar.caption("")
 
-app_mode = st.sidebar.selectbox("Select page",["Context","Predictor", "Pertanian Forum", "PetaniAI"])
+app_mode = st.sidebar.selectbox("Select page",["Context","Predictor", "Pertanian Forum", "PetaniAI", "Support Us!"])
 
 st.sidebar.caption("")
 st.sidebar.caption("")
@@ -224,43 +224,44 @@ if(app_mode=="Context"):
              provide secondary advice to their current hydroponic farming techniques.""")
     
     st.header("Our Business Model")
-    with st.expander("Key Partners"):
+    st.caption("Who and how we plan to showcase TaniBoss! to the world.")
+    with st.expander("**Key Partners**"):
         st.write('- Edufarms, especially Gunung Anyar')
         st.write('- The Government (includes sub-districts around Indonesia)')
         st.write('- National community (Akupetani.id)')
 
-    with st.expander("Key Activities"):
+    with st.expander("**Key Activities**"):
         st.write('- Teach farmers to input new data')
         st.write('- Teach farmers about using the website')
         st.write('- Market the farmer’s forum')
 
-    with st.expander("Key Propositions"):
+    with st.expander("**Key Propositions**"):
         st.write('- Identify farming problems')
         st.write('- Increase crop yield')
         st.write('- Introduce new contacts through forum')
 
-    with st.expander("Key Resources"):
+    with st.expander("**Key Resources**"):
         st.write('- Farm data')
         st.write('- Internet domain')
         st.write('- Plants yield data around Indonesia and its growth factor')
 
-    with st.expander("Cost Structure"):
+    with st.expander("**Cost Structure**"):
         st.write('- Chatbase GPT (3 Million Rupiah)')
         st.write('- Website Marketing (15 Million Rupiah)')
 
-    with st.expander("Revenue Streams"):
+    with st.expander("**Revenue Streams**"):
         st.write('- Sponsor from companies')
         st.write('- Donations from the public')
 
-    with st.expander("Customer Relationships"):
+    with st.expander("**Customer Relationships**"):
         st.write('- Rarely, because they would be talking to each other or the AI.')
         st.write('- Farmers can use our website without us having to interact with each other')
 
-    with st.expander("Customer Segments"):
+    with st.expander("**Customer Segments**"):
         st.write('- Farmers')
         st.write('- Farm-Owners')
 
-    with st.expander("Channels"):
+    with st.expander("**Channels**"):
         st.write('- TaniBoss! Website')
         st.write('- Word of mouth')
         st.write('- Gardening / farming Influencers')
@@ -480,3 +481,9 @@ elif app_mode == "PetaniAI":
             )
 
             st.write('---')
+
+elif app_mode == "Support Us!":
+    st.markdown("<h1 style='text-align: center;'>Support Our Farmers! 🌱", unsafe_allow_html=True)
+    st.write("Your contribution can make a world of difference for local farmers in Indonesia. By donating, you’re not just helping sustain our website—you’re empowering farmers with AI tools, fostering collaboration through forums, and supporting data-driven solutions for better crop yields.")
+    st.markdown("<p style='margin-top:25px;'>Donate to the account below:", unsafe_allow_html=True)
+    st.markdown("<h2 style='margin-top:10px;text-align: center; display:flex; justify-content:center;'>BCA 0182081202120 <br>A/N Felicia Budiman", unsafe_allow_html=True)
