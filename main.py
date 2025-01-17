@@ -97,7 +97,12 @@ def analyze_and_recommend(data, farmer_input):
     
     # Compare farmer's input to mean values and generate recommendations
     recommendations = {}
-    fertilisers = {"Nitrogen (N)": ["Corn Gluten Meal", "Fish Meal", "Feathers", "Bat Guano"], "Phosphorus (P)": ["Bone Meal", "Rock Phosphate", "Bat Guano"], "Potassium (K)": ["Greensand", "Kelp"]}
+    fertilisers = {"Nitrogen (N)": 
+                   ["Corn Gluten Meal", "Fish Meal", "Feathers", "Bat Guano", "Nitrogen promotes robust vegetative growth, essential for plants to photosynthesize effectively and produce higher yields of flowers or fruits.", "Excess nitrogen promotes excessive leaf and stem growth at the expense of flowers and fruits, leading to weak stems and increased susceptibility to pests, reducing overall crop yield and quality."], 
+                   "Phosphorus (P)": 
+                   ["Bone Meal", "Rock Phosphate", "Bat Guano", "High phosphorus levels allow for strong root development and supports flowering, leading to higher fruit and seed production.", "Excess phosphorus disrupts nutrient balance, weakening plants and lowering their ability to efficiently grow and produce high-quality fruits or seeds."], 
+                   "Potassium (K)": 
+                   ["Greensand", "Kelp", "Higher potassium levels leads to better flower and fruit quality, as well as stress resistance, leading to better-sized and more nutrient-dense yields.", "Excess potassium can negatively affect crop quality and cause structural weakness, especially in fruits and vegetables, by disrupting nutrient absorption."]}
     for feature in farmer_input.keys():
         farmer_value = farmer_input[feature]
         ideal_value = mean_values[feature]
@@ -106,13 +111,13 @@ def analyze_and_recommend(data, farmer_input):
             if feature == "Rain Fall (mm)":    
                 recommendations[feature] = f"Water the plants :green[more] :arrow_up_small: ."
             else:
-                recommendations[feature] = f":arrow_up_small: :green[Increase] {feature} to around {ideal_value:.2f}. Examples of recommended fertilisers: {", ".join(fertilisers[feature])}."
+                recommendations[feature] = f":arrow_up_small: :green[Increase] {feature} to around {ideal_value:.2f}. Examples of recommended fertilisers: {", ".join(fertilisers[feature][:-2])}. {fertilisers[feature][-2]}"
         elif farmer_value > ideal_value + 0.05 * ideal_value:
             all_optimal = False
             if feature == "Rain Fall (mm)":    
                 recommendations[feature] = f"Water the plants :red[less] :arrow_down_small: ."
             else:
-                recommendations[feature] = f":arrow_down_small: :red[Decrease] {feature} to around {ideal_value:.2f}. If using any of these fertilisers, reduce the amount: {", ".join(fertilisers[feature])}."
+                recommendations[feature] = f":arrow_down_small: :red[Decrease] {feature} to around {ideal_value:.2f}. If using any of these fertilisers, reduce the amount: {", ".join(fertilisers[feature][:-2])}. {fertilisers[feature][-1]}"
         else:
             recommendations[feature] = f"{feature} is optimal."
     
