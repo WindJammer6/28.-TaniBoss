@@ -97,15 +97,22 @@ def analyze_and_recommend(data, farmer_input):
     
     # Compare farmer's input to mean values and generate recommendations
     recommendations = {}
+    fertilisers = {"Nitrogen (N)": ["Corn Gluten Meal", "Fish Meal", "Feathers", "Bat Guano"], "Phosphorus (P)": ["Bone Meal", "Rock Phosphate", "Bat Guano"], "Potassium (K)": ["Greensand", "Kelp"]}
     for feature in farmer_input.keys():
         farmer_value = farmer_input[feature]
         ideal_value = mean_values[feature]
         if farmer_value < ideal_value - 0.05 * ideal_value:
             all_optimal = False
-            recommendations[feature] = f":arrow_up_small: :green[Increase] {feature} to around {ideal_value:.2f}."
+            if feature == "Rain Fall (mm)":    
+                recommendations[feature] = f"Water the plants :green[more] :arrow_up_small: ."
+            else:
+                recommendations[feature] = f":arrow_up_small: :green[Increase] {feature} to around {ideal_value:.2f}. Examples of recommended fertilisers: {", ".join(fertilisers[feature])}."
         elif farmer_value > ideal_value + 0.05 * ideal_value:
             all_optimal = False
-            recommendations[feature] = f":arrow_up_small: :red[Decrease] {feature} to around {ideal_value:.2f}."
+            if feature == "Rain Fall (mm)":    
+                recommendations[feature] = f"Water the plants :red[less] :arrow_down_small: ."
+            else:
+                recommendations[feature] = f":arrow_down_small: :red[Decrease] {feature} to around {ideal_value:.2f}. If using any of these fertilisers, reduce the amount: {", ".join(fertilisers[feature])}."
         else:
             recommendations[feature] = f"{feature} is optimal."
     
@@ -312,7 +319,7 @@ elif(app_mode=="Predictor"):
         mean_yield, mean_values, recommendations, all_optimal = analyze_and_recommend(data, farmer_input_conditions)
 
         # Display results
-        st.write(f"Mean Yield for the highest quartile of crop: {mean_yield:.2f}")
+        # st.write(f"Mean Yield for the highest quartile of crop: {mean_yield:.2f}")
         # st.write("\nFeature values for the mean yield of the highest quartile:")
         # st.write(mean_values)
         df = pd.DataFrame(index=["Average", "Current"])
