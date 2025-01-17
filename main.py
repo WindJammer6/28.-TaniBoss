@@ -222,6 +222,51 @@ if(app_mode=="Context"):
              hydroponic techniques, based on the conditions and yield at Gunung Anyar. Additionally, it offers a platform for farmers to communicate with one another, 
              allowing them to ask for and share advice on localised farming techniques. Lastly, it offers an expert hydroponic farming AI assistant to 
              provide secondary advice to their current hydroponic farming techniques.""")
+    
+    st.header("Our Business Model")
+    with st.expander("Key Partners"):
+        st.write('- Edufarms, especially Gunung Anyar')
+        st.write('- The Government (includes sub-districts around Indonesia)')
+        st.write('- National community (Akupetani.id)')
+
+    with st.expander("Key Activities"):
+        st.write('- Teach farmers to input new data')
+        st.write('- Teach farmers about using the website')
+        st.write('- Market the farmer’s forum')
+
+    with st.expander("Key Propositions"):
+        st.write('- Identify farming problems')
+        st.write('- Increase crop yield')
+        st.write('- Introduce new contacts through forum')
+
+    with st.expander("Key Resources"):
+        st.write('- Farm data')
+        st.write('- Internet domain')
+        st.write('- Plants yield data around Indonesia and its growth factor')
+
+    with st.expander("Cost Structure"):
+        st.write('- Chatbase GPT (3 Million Rupiah)')
+        st.write('- Website Marketing (15 Million Rupiah)')
+
+    with st.expander("Revenue Streams"):
+        st.write('- Sponsor from companies')
+        st.write('- Donations from the public')
+
+    with st.expander("Customer Relationships"):
+        st.write('- Rarely, because they would be talking to each other or the AI.')
+        st.write('- Farmers can use our website without us having to interact with each other')
+
+    with st.expander("Customer Segments"):
+        st.write('- Farmers')
+        st.write('- Farm-Owners')
+
+    with st.expander("Channels"):
+        st.write('- TaniBoss! Website')
+        st.write('- Word of mouth')
+        st.write('- Gardening / farming Influencers')
+        st.write('- Farmer communities')
+        st.write('- Socialization at each sub-district')
+
 
 ########################
 # Predictor page codes #
