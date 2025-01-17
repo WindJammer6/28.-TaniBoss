@@ -120,7 +120,7 @@ st.sidebar.caption("")
 st.sidebar.caption("")
 st.sidebar.caption("")
 
-app_mode = st.sidebar.selectbox("Select page",["CONTEXT","PREDICTIONS", "Pertanian Forum", "PetaniAI"])
+app_mode = st.sidebar.selectbox("Select page",["CONTEXT","PREDICTIONS", "Pertanian Forum", "PetaniAI", "Donation"])
 
 st.sidebar.caption("")
 st.sidebar.caption("")
@@ -265,6 +265,11 @@ elif app_mode == "PetaniAI":
 
             st.write('---')
 
+elif app_mode == "Donation":
+    st.markdown("<h1 style='text-align: center;'>Support Our Farmers! 🌱", unsafe_allow_html=True)
+    st.write("Your contribution can make a world of difference for local farmers in Indonesia. By donating, you’re not just helping sustain our website—you’re empowering farmers with AI tools, fostering collaboration through forums, and supporting data-driven solutions for better crop yields.")
+    st.markdown("<p style='margin-top:25px;'>Donate to the account below:", unsafe_allow_html=True)
+    st.markdown("<h2 style='margin-top:10px;text-align: center; display:flex; justify-content:center;'>BCA 0182081202120 <br>A/N Felicia Budiman", unsafe_allow_html=True)
 
     # # Convert the data into a DataFrame
     # df = pd.DataFrame(data)
