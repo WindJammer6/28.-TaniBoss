@@ -284,7 +284,7 @@ elif(app_mode=="Predictor"):
     potassium_train = side_right_col_train.text_input('Potassium (g):')
     yield_train = side_left_col_train.text_input('Yield (g/m²):')
 
-    if side_left_col_train.button('Submit'):
+    if st.button('Submit'):
         st.success("Today's condition the farm has been received by the model!")
 
     st.write("---")
