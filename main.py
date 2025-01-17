@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import streamlit as st
 import numpy as np
 from streamlit_extras.let_it_rain import rain
@@ -80,6 +81,7 @@ print("Intercept:", model.intercept_)
 # Define function to separate into quartiles and provide recommendations
 def analyze_and_recommend(data, farmer_input):
     
+    all_optimal = True
     # Sort data by yield and select the upper half for training
     # upper_half = data[data["Yield (Q/acre)"] >= data["Yield (Q/acre)"].median()]
     
@@ -91,7 +93,7 @@ def analyze_and_recommend(data, farmer_input):
     highest_quartile = data[data["Quartile"] == "Q4"]
     
     # Compute mean yield and feature values for the highest quartile
-    mean_values = highest_quartile.mean()
+    mean_values = highest_quartile.mean(numeric_only=True)
     mean_yield = mean_values["Yield (Q/acre)"]
     
     # Compare farmer's input to mean values and generate recommendations
@@ -100,13 +102,15 @@ def analyze_and_recommend(data, farmer_input):
         farmer_value = farmer_input[feature]
         ideal_value = mean_values[feature]
         if farmer_value < ideal_value - 0.05 * ideal_value:
-            recommendations[feature] = f"Increase {feature} to around {ideal_value:.2f}."
+            all_optimal = False
+            recommendations[feature] = f":arrow_up_small: :green[Increase] {feature} to around {ideal_value:.2f}."
         elif farmer_value > ideal_value + 0.05 * ideal_value:
-            recommendations[feature] = f"Decrease {feature} to around {ideal_value:.2f}."
+            all_optimal = False
+            recommendations[feature] = f":arrow_up_small: :red[Decrease] {feature} to around {ideal_value:.2f}."
         else:
             recommendations[feature] = f"{feature} is optimal."
     
-    return mean_yield, mean_values, recommendations
+    return mean_yield, mean_values, recommendations, all_optimal
 
 
 # To add a local image to Streamlit website
@@ -258,16 +262,50 @@ elif(app_mode=="Predictor"):
         }
 
         # Analyze data and provide recommendations
-        mean_yield, mean_values, recommendations = analyze_and_recommend(data, farmer_input_conditions)
+        mean_yield, mean_values, recommendations, all_optimal = analyze_and_recommend(data, farmer_input_conditions)
 
         # Display results
         st.write(f"Mean Yield for the highest quartile of crop: {mean_yield:.2f}")
-        st.write("\nFeature values for the mean yield of the highest quartile:")
-        st.write(mean_values)
-        st.write("\nRecommendations for improving yield:")
+        # st.write("\nFeature values for the mean yield of the highest quartile:")
+        # st.write(mean_values)
+        df = pd.DataFrame(index=["Average", "Current"])
+        for condition in farmer_input_conditions.items():
+            col = condition[0]
+            df[col] = [mean_values[col], condition[1]]
+        cols = st.columns(df.shape[1])
+ 
+        # Sample data for the bar charts
+        data1 = df["Rain Fall (mm)"]
+        data2 = df["Nitrogen (N)"]
+        data3 = df["Phosphorus (P)"]
+        data4 = df["Potassium (K)"]
+
+        # Create a 4x1 grid using st.columns
+        col1, col2, col3, col4 = st.columns(4)
+
+        # Display each chart in its respective column
+        with col1:
+            st.subheader("Rain Fall (mm)")
+            st.bar_chart(data1)
+
+        with col2:
+            st.subheader("Nitrogen (N)")
+            st.bar_chart(data2)
+
+        with col3:
+            st.subheader("Phosphorus (P)")
+            st.bar_chart(data3)
+
+        with col4:
+            st.subheader("Potassium (K)")
+            st.bar_chart(data4)
+
+        if all_optimal:
+            st.write("No further action necessary. Your farm is already optimized for high yield!")
+        else:
+            st.write("\nRecommendations for improving yield:")
         for feature, recommendation in recommendations.items():
             st.write(f"- {recommendation}")
-
 
 ##############################
 # Pertanian forum page codes #
