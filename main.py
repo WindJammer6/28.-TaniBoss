@@ -174,7 +174,7 @@ st.sidebar.caption("")
 st.sidebar.caption("")
 st.sidebar.caption("")
 
-app_mode = st.sidebar.selectbox("Select page",["Context","Predictor", "Pertanian Forum", "PetaniAI", "Support Us!"])
+app_mode = st.sidebar.selectbox("Select page",["Context","Predictor", "Pertanian Forum", "PetaniAI", "Support Us"])
 
 st.sidebar.caption("")
 st.sidebar.caption("")
@@ -482,8 +482,17 @@ elif app_mode == "PetaniAI":
 
             st.write('---')
 
-elif app_mode == "Support Us!":
-    st.markdown("<h1 style='text-align: center;'>Support Our Farmers! 🌱", unsafe_allow_html=True)
+elif app_mode == "Support Us":
+    st.markdown("<h1 style='text-align: center;'>Support Our Farmers! ❤️🌱", unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <img src="https://img.freepik.com/free-vector/support-local-farmers-concept_23-2148594620.jpg?size=338&ext=jpg" alt="Centered Image">
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+    st.write("")
     st.write("Your contribution can make a world of difference for local farmers in Indonesia. By donating, you’re not just helping sustain our website—you’re empowering farmers with AI tools, fostering collaboration through forums, and supporting data-driven solutions for better crop yields.")
-    st.markdown("<p style='margin-top:25px;'>Donate to the account below:", unsafe_allow_html=True)
+    st.header("Donate to the account below:")
     st.markdown("<h2 style='margin-top:10px;text-align: center; display:flex; justify-content:center;'>BCA 0182081202120 <br>A/N Felicia Budiman", unsafe_allow_html=True)
