@@ -174,11 +174,7 @@ st.sidebar.caption("")
 st.sidebar.caption("")
 st.sidebar.caption("")
 
-<<<<<<< HEAD
-app_mode = st.sidebar.selectbox("Select page",["CONTEXT","PREDICTIONS", "Pertanian Forum", "PetaniAI", "Donation"])
-=======
-app_mode = st.sidebar.selectbox("Select page",["Context","Predictor", "Pertanian Forum", "PetaniAI"])
->>>>>>> 5b21f44a82ef000f1bc1aa5b9e1d9a105c2a8500
+app_mode = st.sidebar.selectbox("Select page",["Context","Predictor", "Pertanian Forum", "PetaniAI", "Donation"])
 
 st.sidebar.caption("")
 st.sidebar.caption("")
