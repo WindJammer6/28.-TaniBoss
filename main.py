@@ -76,7 +76,6 @@ print("Intercept:", model.intercept_)
 
 # //////////////////////////////////////////////////////////////////////
 
-
 # Define function to separate into quartiles and provide recommendations
 def analyze_and_recommend(data, farmer_input):
     
@@ -295,6 +294,7 @@ elif(app_mode=="Predictor"):
     phosphorus_train = side_right_col_train.text_input('Phosphorus (g):')
     potassium_train = side_right_col_train.text_input('Potassium (g):')
     yield_train = side_left_col_train.text_input('Yield (g/m²):')
+    plant_type = side_right_col_train.text_input('Plant Type:')
 
     if st.button('Submit'):
         st.success("Today's condition the farm has been received by the model!")
@@ -308,6 +308,7 @@ elif(app_mode=="Predictor"):
     nitrogen_predict = side_left_col_predict.text_input('Nitrogen (g):', key=300)
     phosphorus_predict = side_right_col_predict.text_input('Phosphorus (g):', key=400)
     potassium_predict = side_right_col_predict.text_input('Potassium (g):', key=500)
+    plant_type = side_left_col_predict.text_input('Plant Type:', key=600)
 
     if(st.button("Predict")):      
         st.success("Success!")
@@ -327,7 +328,7 @@ elif(app_mode=="Predictor"):
         # st.write(f"Mean Yield for the highest quartile of crop: {mean_yield:.2f}")
         # st.write("\nFeature values for the mean yield of the highest quartile:")
         # st.write(mean_values)
-        df = pd.DataFrame(index=["Average", "Current"])
+        df = pd.DataFrame(index=["Average yield", "Current"])
         for condition in farmer_input_conditions.items():
             col = condition[0]
             df[col] = [mean_values[col], condition[1]]
