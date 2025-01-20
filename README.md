@@ -1,8 +1,8 @@
 # 28.-TaniBoss! 🌱💧
 <p align="center"> 
   <img src="https://github.com/WindJammer6/28.-TaniBoss/blob/main/Image%20of%20TaniBoss!.png"  width="350" height="400">
-  <img src="https://github.com/WindJammer6/18.-Deployed-Streamlit-Python-and-Firebase-Web-Application-Project-for-a-Karaoke-Event/blob/main/README%20images/Image%20of%20Streamlit%20(Python)%20Karaoke%20Singer%20Registration%20web%20application.jpg"  width="350" height="250">
-  <img src="https://github.com/WindJammer6/18.-Deployed-Streamlit-Python-and-Firebase-Web-Application-Project-for-a-Karaoke-Event/blob/main/README%20images/Image%20of%20Streamlit%20(Python)%20Karaoke%20Singer%20Registration%20web%20application.jpg"  width="350" height="250">
+  <img src="https://github.com/WindJammer6/28.-TaniBoss/blob/main/SUTD%20FACT%20Trip%20at%20PCU%20Hackathon%20Certificate%20of%20Top%20Winning%20Team.jpg"  width="350" height="250">
+  <img src="https://github.com/WindJammer6/28.-TaniBoss/blob/main/SUTD%20FACT%20Trip%20at%20PCU%20Hackathon%20Certificate%20of%20Participation.jpg"  width="350" height="250">
 </p>
 
 Took part in a 7-day general programming [SUTD Freshmore Freshmore Asian Cross-curricular Trip (FACT)](https://www.sutd.edu.sg/campus-life/global-experience-and-exchange/sutd-fact/) to [Petra Christian University (PCU)](https://en.wikipedia.org/wiki/Petra_Christian_University) in Surabaya, Indonesia as part of the [10.020 Data Driven World module](https://www.sutd.edu.sg/course/10-020-data-driven-world-elective). Took part in the hackathon during the trip in a team of 6 (3 SUTD students and 3 PCU students) and achieved 1st Place (out of 10 teams).
