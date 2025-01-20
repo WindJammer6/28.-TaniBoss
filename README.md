@@ -12,7 +12,7 @@ From the [SUTD FACT Trips official website](https://www.sutd.edu.sg/campus-life/
 The challenge of this hackathon was to create a website application using Streamlit and machine learning to help local businesses (we visited a cafe, paving factory and farm) in Gunung Anyar, Surabaya, Indonesia.
 
 Created a functional prototype Streamlit website application to help out a local farm business (particularly about finding the optimal conditions for hydroponic farming of spinaches), titled '**TaniBoss!**' ('Tani' comes from 'Petani', which is Indonesian for 'Farmer'). It contains the features:
-- A simple prediction and farming conditions recommendation machine learning model to optimise crop yield
+- A simple prediction and farming conditions recommendation machine learning model to optimise crop yield (using the Multiple Variable Linear Regression (MVLR) machine learning algorithm)
 
   This 
 - A forum for local farmers
@@ -78,11 +78,20 @@ The 'README.md' file.
 
 <br>
 
-**3. 'firebase_key.json' file**
-```python
-
+**3. 'Crop yield dataset.csv' file**
+```text
+Rain Fall (mm),Fertilizer,Temperature,Nitrogen (N),Phosphorus (P),Potassium (K),Yield (Q/acre),,,,,,
+1230,80,28,80,24,20,12,,,,,,
+480,60,36,70,20,18,8,,,,,,
+1250,75,29,78,22,19,11,,,,,,
+450,65,35,70,19,18,9,,,,,,
+1200,80,27,79,22,19,11,,,,,,
 ```
-This file represents the authetication key. Apparently, when accessing to APIs (such as the Firebase API), you will need to have a sort of, authentication key, which is what this file is to ensure that only authorized users can access the API. Refer to this video to understand how the Firebase API authentication key is used with your Python code: https://www.youtube.com/watch?v=s-Ga8c3toVY&t=336s (Code First with Hala) 
+(Data shown is only the top 5 rows of data. Theres 99 rows of data in this dataset.)
+
+Dataset is obtained from:
+
+This is a static dataset used to train the prediction and farming conditions recommendation machine learning model to optimise crop yield.
 
 <br>
 
@@ -102,7 +111,7 @@ The main Python file for the TaniBoss! Streamlit (Python Framework) Web Applicat
 <br>
 
 **6. 'requirements.txt' file**
-```python
+```text
 streamlit           
 numpy
 # streamlit_extras
