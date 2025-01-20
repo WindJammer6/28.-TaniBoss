@@ -107,7 +107,7 @@ Rain Fall (mm),Fertilizer,Temperature,Nitrogen (N),Phosphorus (P),Potassium (K),
 ```
 (Data shown is only the top 5 rows of data. Theres 99 rows of data in this dataset.)
 
-Dataset is obtained from:
+Dataset is obtained from: https://www.kaggle.com/datasets/yaminh/crop-yield-prediction?resource=download (Kaggle dataset by Yamin Hossain)
 
 This is a static dataset used to train the prediction and farming conditions recommendation machine learning model to optimise crop yield.
 
