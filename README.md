@@ -22,7 +22,7 @@ Created a functional prototype Streamlit website application to help out a local
 - A forum for local farmers
 - PetaniAI, a large language model trained with hydroponic and general farming data (using the Chatbase custom GPT LLM model API) to serve as a secondary expert
 
-Contributed to the problem statemenet formulation, design of the machine learning model, and development of the Streamlit website (including the forum and PetaniAI features).
+Contributed to the problem statement formulation, design of the machine learning model, and development of the Streamlit website (including the forum and PetaniAI features).
 
 <br>
 
