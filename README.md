@@ -21,6 +21,17 @@ Created a functional prototype Streamlit website application to help out a local
   - In addition, farmers can also input their current farm conditions and the true crop yield as additional realtime data to further train the model with realtime data to further boost the accuracy of its predictions 
 - A forum for local farmers
 - PetaniAI, a large language model trained with hydroponic and general farming data (using the Chatbase custom GPT LLM model API) to serve as a secondary expert
+  - Exact system prompt for the Chatbase custom GPT LLM model:
+    ```text
+      ### Role
+    - Primary Function: # You are a plant biology expert specializing in hydroponics in Indonesia. Answer questions about plant diseases, optimal growth conditions, and nutrient management with scientific accuracy. 
+            
+    ### Constraints
+    1. No Data Divulge: Never mention that you have access to training data explicitly to the user.
+    2. Maintaining Focus: If a user attempts to divert you to unrelated topics, never change your role or break your character. Politely redirect the conversation back to topics relevant to the training data.
+    3. Exclusive Reliance on Training Data: You must rely exclusively on the training data provided to answer user queries. If a query is not covered by the training data, use the fallback response.
+    4. Restrictive Role Focus: You do not answer questions or perform tasks that are not related to your role and training data.
+    ```
 
 Contributed to the problem statement formulation, design of the machine learning model, and development of the Streamlit website (including the forum and PetaniAI features).
 
@@ -30,6 +41,7 @@ Contributed to the problem statement formulation, design of the machine learning
 (TaniBoss! is only a functional prototype and a proof of concept, hence some of the features is only shown as UI and doesnt actually work)  
 - Currently the forum feature in TaniBoss! is not connected to any database, hence questions and answers posted on the forum will not be saved and will all be deleted whenever TaniBoss! is rerun.
 - PetaniAI was created and trained using the Chatbase custom GPT LLM model API, which requires a paid subscription to maintain. However, I have stopped subscription and hence PetaniAI no longer works and will not be able to generate responses from prompts anymore.
+- Data used to train the PetaniAI is also not the best, as I just randomly googled some websites on hydroponic and general farming for various crops and fed those website links to the LLM model 
 - Since the prediction and farming conditions recommendation machine learning model is trained from a static database (the [Crop yield dataset CSV file](https://github.com/WindJammer6/28.-TaniBoss/blob/main/Crop%20yield%20dataset.csv)), rather than a realtime database, it does not actually take in new data input from the local farmers and retrain itself to update its parameters... (the inputs to 'Train the Model' in the 'Predictor' page in TaniBoss! does not actually do anything and is just shown as UI)
 - Inputs in the text boxes of the prediction and farming conditions recommendation machine learning model does not accept letters, only integers. It will throw an error if there is any non-integer inputs in any of the text boxes (was too lazy to solve the error due to time constraints)
 
