@@ -152,7 +152,8 @@ logo_base64_site_analysis = get_image_base64(logo_path_site_analysis)
 # Initiating Chatbase stuffs
 url = 'https://www.chatbase.co/api/v1/chat'
 headers = {
-    'Authorization': 'Bearer 3c7b798b-c5fe-41a7-bdeb-f5d0b6f8536e',
+    # 'Authorization': 'Bearer 3c7b798b-c5fe-41a7-bdeb-f5d0b6f8536e',
+    'Authorization': 'Bearer 3c7b798b-c',
     'Content-Type': 'application/json'
 }
 # Initialize conversation history in session state
