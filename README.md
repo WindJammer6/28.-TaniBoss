@@ -105,6 +105,8 @@ Images used for aesthetic purposes in the TaniBoss! Streamlit (Python Framework)
 
 <br>
 
+<br>
+
 **5. 'main.py' file**  
 The main Python file for the TaniBoss! Streamlit (Python Framework) Web Application itself.
 
