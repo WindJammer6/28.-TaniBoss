@@ -1,6 +1,6 @@
 # 28.-TaniBoss! 🌱💧
 <p align="center"> 
-  <img src="https://github.com/WindJammer6/28.-TaniBoss/blob/main/Image%20of%20TaniBoss!.png"  width="350" height="400">
+  <img src="https://github.com/WindJammer6/28.-TaniBoss/blob/main/Image%20of%20TaniBoss!.png"  width="550" height="250">
   <img src="https://github.com/WindJammer6/28.-TaniBoss/blob/main/SUTD%20FACT%20Trip%20at%20PCU%20Hackathon%20Certificate%20of%20Top%20Winning%20Team.jpg"  width="350" height="250">
   <img src="https://github.com/WindJammer6/28.-TaniBoss/blob/main/SUTD%20FACT%20Trip%20at%20PCU%20Hackathon%20Certificate%20of%20Participation.jpg"  width="350" height="250">
 </p>
@@ -35,7 +35,7 @@ Contributed to the problem statemenet formulation, design of the machine learnin
 nil
 
 *This project's deployed Streamlit (Python Framework)'s Web Application link:*
-+ https://8kbtr2cyktbh4qn2doay5g.streamlit.app/ 
++ https://28-taniboss-a4pztr2hja6xtix2m44wef.streamlit.app/ 
 
 <br>
 
@@ -140,7 +140,7 @@ Honestly, the documentation on how to deploy a Streamlit (Python Framework) Web 
 
 - Here is the link of my [Streamlit Cloud](https://streamlit.io/cloud) account of the username: 'WindJammer6' - https://share.streamlit.io/user/windjammer6
 - Here is the link of this deployed Streamlit Web Application using [Streamlit Cloud](https://streamlit.io/cloud)
-    - 
+    - https://28-taniboss-a4pztr2hja6xtix2m44wef.streamlit.app/
 
 Source(s):  
 + https://streamlit.io/cloud (Streamlit Cloud)
