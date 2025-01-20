@@ -14,26 +14,26 @@ from datetime import datetime
 ########################
 # Administrative codes #
 ########################
-st.set_page_config(page_title='Snowflake', layout='wide',
+st.set_page_config(page_title='TaniBoss!', layout='wide',
                 #    initial_sidebar_state=st.session_state.get('sidebar_state', 'collapsed'),
 )
-sidebar_content = """
+content = """
 <div style="display: flex; justify-content: center; align-items: center;">
     <img src="https://toagriculture.com/wp-content/uploads/2022/09/Plant-diseases.jpg" width="1000">
 </div>
 """
 
-st.markdown(sidebar_content, unsafe_allow_html=True)
+st.markdown(content, unsafe_allow_html=True)
 
 cols = st.columns(2)
 
 
-# //////////////////////////////////////////////////////////////////////
+# /////////////////////////////////////////////////////////////////////
 
 
 # Preparing the dataset, and training a Multiple Linear Regression model with the dataset
 # Load the dataset
-file_path = "crop_yield_dataset.csv"
+file_path = "Crop yield dataset.csv"
 data = pd.read_csv(file_path)
 
 # Calculate the average yield for the crop
@@ -110,13 +110,13 @@ def analyze_and_recommend(data, farmer_input):
             if feature == "Rain Fall (mm)":    
                 recommendations[feature] = f"Water the plants :green[more] :arrow_up_small: ."
             else:
-                recommendations[feature] = f":arrow_up_small: :green[Increase] {feature} to around {ideal_value:.2f}. Examples of recommended fertilisers: {", ".join(fertilisers[feature][:-2])}. {fertilisers[feature][-2]}"
+                recommendations[feature] = f":arrow_up_small: :green[Increase] {feature} to around {ideal_value:.2f}. Examples of recommended fertilisers: {', '.join(fertilisers[feature][:-2])}. {fertilisers[feature][-2]}"
         elif farmer_value > ideal_value + 0.05 * ideal_value:
             all_optimal = False
             if feature == "Rain Fall (mm)":    
                 recommendations[feature] = f"Water the plants :red[less] :arrow_down_small: ."
             else:
-                recommendations[feature] = f":arrow_down_small: :red[Decrease] {feature} to around {ideal_value:.2f}. If using any of these fertilisers, reduce the amount: {", ".join(fertilisers[feature][:-2])}. {fertilisers[feature][-1]}"
+                recommendations[feature] = f":arrow_down_small: :red[Decrease] {feature} to around {ideal_value:.2f}. If using any of these fertilisers, reduce the amount: {', '.join(fertilisers[feature][:-2])}. {fertilisers[feature][-1]}"
         else:
             recommendations[feature] = f"{feature} is optimal."
     
@@ -130,9 +130,9 @@ def get_image_base64(image_path):
         return base64.b64encode(img_file.read()).decode()
 
 # Path to your local logo image
-logo_path_user = "./user_logo.jpg"
-logo_path_farmer_ai = "./ai_farmer_logo_edited.jpg"
-logo_path_site_analysis = "./siteanalysis_hydroponic.jpg"
+logo_path_user = "./Image of PetaniAI user logo.jpg"
+logo_path_farmer_ai = "./Image of PetaniAI logo.jpg"
+logo_path_site_analysis = "./Image of local hydroponic farm site analysis.jpg"
 logo_base64_user = get_image_base64(logo_path_user)
 logo_base64_farmer_ai = get_image_base64(logo_path_farmer_ai)
 logo_base64_site_analysis = get_image_base64(logo_path_site_analysis)
