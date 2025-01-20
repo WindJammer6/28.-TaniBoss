@@ -1,6 +1,6 @@
 # 28.-TaniBoss! 🌱💧
 <p align="center"> 
-  <img src="https://github.com/WindJammer6/28.-TaniBoss/blob/main/Image%20of%20TaniBoss!.png"  width="350" height="250">
+  <img src="https://github.com/WindJammer6/28.-TaniBoss/blob/main/Image%20of%20TaniBoss!.png"  width="350" height="400">
   <img src="https://github.com/WindJammer6/18.-Deployed-Streamlit-Python-and-Firebase-Web-Application-Project-for-a-Karaoke-Event/blob/main/README%20images/Image%20of%20Streamlit%20(Python)%20Karaoke%20Singer%20Registration%20web%20application.jpg"  width="350" height="250">
   <img src="https://github.com/WindJammer6/18.-Deployed-Streamlit-Python-and-Firebase-Web-Application-Project-for-a-Karaoke-Event/blob/main/README%20images/Image%20of%20Streamlit%20(Python)%20Karaoke%20Singer%20Registration%20web%20application.jpg"  width="350" height="250">
 </p>
@@ -47,7 +47,7 @@ Here is a directory to explain the purpose of each file in this repository:
        i. 'config.toml' file
     2. 'README.md' file
     3. 'Crop yield dataset.csv' file
-    4. 'Image of PetaniAI logo.jpg', 'Image of PetaniAI user logo.jpg', 'Image of local hydroponic farm site analysis.jpg' and 'Image of plant diseases.jpg' files
+    4. 'Image of PetaniAI logo.jpg', 'Image of PetaniAI user logo.jpg' and 'Image of local hydroponic farm site analysis.jpg' files
     5. 'main.py' file
     6. 'requirements.txt' file
     
