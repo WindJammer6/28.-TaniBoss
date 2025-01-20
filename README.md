@@ -51,11 +51,11 @@ Here is a directory to explain the purpose of each file in this repository:
     5. 'main.py' file
     6. 'requirements.txt' file
     
-2. [Deployment Process of the Streamlit and Firebase Web Application Project for TaniBoss! on Streamlit Cloud](#deploymentofstreamlitwebapplications)
+2. [Deployment Process of the Streamlit Web Application Project - TaniBoss! on Streamlit Cloud](#deploymentofstreamlitwebapplications)
 
 <br>
 
-## 1. Files that are required in the creation of the Streamlit and Firebase Web Application Project for a Karaoke Event <a name = "filesrequiredincreationofstreamlitwebapplications"></a>
+## 1. Files that are required in the creation of the Streamlit Web Application Project - TaniBoss! <a name = "filesrequiredincreationofstreamlitwebapplications"></a>
 **1. '.streamlit' folder**  
 *i. config.toml' file*
 ```python
@@ -129,7 +129,7 @@ Apparently, the 'requirements.txt' file is a common practice across various depl
 
 <br>
 
-## 2. Deployment Process of the Streamlit and Firebase Web Application Project for TaniBoss! on Streamlit Cloud <a name = "deploymentofstreamlitwebapplications"></a> ![My Skills](https://go-skill-icons.vercel.app/api/icons?i=streamlit)
+## 2. Deployment Process of the Streamlit Web Application Project - TaniBoss! on Streamlit Cloud <a name = "deploymentofstreamlitwebapplications"></a> ![My Skills](https://go-skill-icons.vercel.app/api/icons?i=streamlit)
 
 *What is [Streamlit Cloud](https://streamlit.io/cloud)?*  
 From the official [Streamlit Cloud](https://streamlit.io/cloud) website: 'Streamlit Cloud is a new product that lets you build, deploy, and share data from Streamlit Web Applications in minutes.' 
