@@ -14,7 +14,11 @@ The challenge of this hackathon was to create a website application using Stream
 Created a functional prototype Streamlit website application to help out a local farm business (particularly about finding the optimal conditions for hydroponic farming of spinaches), titled '**TaniBoss!**' ('Tani' comes from 'Petani', which is Indonesian for 'Farmer'). It contains the features:
 - A simple prediction and farming conditions recommendation machine learning model to optimise crop yield (using the Multiple Variable Linear Regression (MVLR) machine learning algorithm)
 
-  This 
+  Architecture of this machine learning model:
+  - Used a Multiple Variable Linear Regression (MVLR) machine learning algorithm and the [Crop yield dataset CSV file](https://github.com/WindJammer6/28.-TaniBoss/blob/main/Crop%20yield%20dataset.csv)), which contains of various farm conditions and the corresponding crop yield data, to predict the yield of a farmer's crops based on the conditions of their farm. The recommendation feature is done by finding the optimal farm conditions to obtain the maximum, realistic crop yield by sorting the [Crop yield dataset CSV file](https://github.com/WindJammer6/28.-TaniBoss/blob/main/Crop%20yield%20dataset.csv)) in ascending crop yield, and splitting the dataset to 4 quadrants, and defining the mean of the farm conditions of the top quadrant as the optimal farm conditions. (We avoided taking the farm conditions with the highest crop yield of the dataset as the optimal farm conditions so as to create a buffer since we believe these might be anomalous data that has unexpectedly high crop yield).
+  - If the predicted crop yield of the farmer based on the input farm conditions is within 5% of the maximum, realistic crop yield, the recommendation would be that the farmer's farm conditions is already optimal and no action required to be taken.
+  - Else, the recommendation would suggest the farmer to increase/decrease the particular farm conditions to the defined optimal farm conditions.
+  - In addition, farmers can also input their current farm conditions and the true crop yield as additional realtime data to further train the model with realtime data to further boost the accuracy of its predictions 
 - A forum for local farmers
 - PetaniAI, a large language model trained with hydroponic and general farming data (using the Chatbase custom GPT LLM model API) to serve as a secondary expert
 
@@ -25,7 +29,7 @@ Contributed to the problem statemenet formulation, design of the machine learnin
 **Potential Improvements:**  
 (TaniBoss! is only a functional prototype and a proof of concept, hence some of the features is only shown as UI and doesnt actually work)  
 - Currently the forum feature in TaniBoss! is not connected to any database, hence questions and answers posted on the forum will not be saved and will all be deleted whenever TaniBoss! is rerun.
-- PetaniAI was created and trained using the Chatbase custom GPT LLM model API, which requires a paid subscription to maintain. However, I have stopped subscription and hence PetaniAI no longer works and will not be able to generate responses from prompts anymore
+- PetaniAI was created and trained using the Chatbase custom GPT LLM model API, which requires a paid subscription to maintain. However, I have stopped subscription and hence PetaniAI no longer works and will not be able to generate responses from prompts anymore.
 - Since the prediction and farming conditions recommendation machine learning model is trained from a static database (the [Crop yield dataset CSV file](https://github.com/WindJammer6/28.-TaniBoss/blob/main/Crop%20yield%20dataset.csv)), rather than a realtime database, it does not actually take in new data input from the local farmers and retrain itself to update its parameters... (the inputs to 'Train the Model' in the 'Predictor' page in TaniBoss! does not actually do anything and is just shown as UI)
 - Inputs in the text boxes of the prediction and farming conditions recommendation machine learning model does not accept letters, only integers. It will throw an error if there is any non-integer inputs in any of the text boxes (was too lazy to solve the error due to time constraints)
 
@@ -33,6 +37,8 @@ Contributed to the problem statemenet formulation, design of the machine learnin
 
 **Additional source(s):**  
 nil
+
+<br>
 
 *This project's deployed Streamlit (Python Framework)'s Web Application link:*
 + https://28-taniboss-a4pztr2hja6xtix2m44wef.streamlit.app/ 
