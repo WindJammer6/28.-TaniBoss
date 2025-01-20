@@ -5,7 +5,7 @@
   <img src="https://github.com/WindJammer6/18.-Deployed-Streamlit-Python-and-Firebase-Web-Application-Project-for-a-Karaoke-Event/blob/main/README%20images/Image%20of%20Streamlit%20(Python)%20Karaoke%20Singer%20Registration%20web%20application.jpg"  width="350" height="250">
 </p>
 
-Took part in a 7-day general programming SUTD Freshmore Freshmore Asian Cross-curricular Trip (FACT) to Petra Christian University (PCU) in Surabaya, Indonesia as part of the 10.020 Data Driven World module. Took part in the hackathon during the trip in a team of 6 (3 SUTD students and 3 PCU students) and achieved 1st Place (out of 10 teams).
+Took part in a 7-day general programming [SUTD Freshmore Freshmore Asian Cross-curricular Trip (FACT)](https://www.sutd.edu.sg/campus-life/global-experience-and-exchange/sutd-fact/) to [Petra Christian University (PCU)](https://en.wikipedia.org/wiki/Petra_Christian_University) in Surabaya, Indonesia as part of the [10.020 Data Driven World module](https://www.sutd.edu.sg/course/10-020-data-driven-world-elective). Took part in the hackathon during the trip in a team of 6 (3 SUTD students and 3 PCU students) and achieved 1st Place (out of 10 teams).
 
 From the [SUTD FACT Trips official website](https://www.sutd.edu.sg/campus-life/global-experience-and-exchange/sutd-fact/): 'FACT (Freshmore Asian Cross-curricular Trips) is a 1-week overseas immersion programme which enables Freshmore (first-year) students to build upon their acquired knowledge at our partner universities in Asia. Centered around specific Freshmore courses, FACT challenges students to apply what they’ve learned in the classroom to solving sustainability challenges within the region.'
 
@@ -27,6 +27,7 @@ Contributed to the problem statemenet formulation, design of the machine learnin
 - Currently the forum feature in TaniBoss! is not connected to any database, hence questions and answers posted on the forum will not be saved and will all be deleted whenever TaniBoss! is rerun.
 - PetaniAI was created and trained using the Chatbase custom GPT LLM model API, which requires a paid subscription to maintain. However, I have stopped subscription and hence PetaniAI no longer works and will not be able to generate responses from prompts anymore
 - Since the prediction and farming conditions recommendation machine learning model is trained from a static database (the [Crop yield dataset CSV file](hi)) (add link!), rather than a realtime database, it does not actually take in new data input from the local farmers and retrain itself to update its parameters... (the inputs to 'Train the Model' in the 'Predictor' page in TaniBoss! does not actually do anything and is just shown as UI)
+- Inputs in the text boxes of the prediction and farming conditions recommendation machine learning model does not accept letters, only integers. It will throw an error if there is any non-integer inputs in any of the text boxes (was too lazy to solve the error due to time constraints)
 
 <br>
 
