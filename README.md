@@ -97,8 +97,8 @@ This is a static dataset used to train the prediction and farming conditions rec
 
 **4. 'Image of PetaniAI logo.jpg', 'Image of PetaniAI user logo.jpg' and 'Image of local hydroponic farm site analysis.jpg' files**
 <p align="center"> 
-  <img src="https://github.com/WindJammer6/28.-TaniBoss/blob/main/Image%20of%20PetaniAI%20logo.jpg"  width="450" height="200">
-  <img src="https://github.com/WindJammer6/28.-TaniBoss/blob/main/Image%20of%20PetaniAI%20user%20logo.jpg"  width="450" height="200">
+  <img src="https://github.com/WindJammer6/28.-TaniBoss/blob/main/Image%20of%20PetaniAI%20logo.jpg"  width="200" height="200">
+  <img src="https://github.com/WindJammer6/28.-TaniBoss/blob/main/Image%20of%20PetaniAI%20user%20logo.jpg"  width="200" height="200">
   <img src="https://github.com/WindJammer6/28.-TaniBoss/blob/main/Image%20of%20local%20hydroponic%20farm%20site%20analysis.jpg"  width="450" height="200">
 </p>
 Images used for aesthetic purposes in the TaniBoss! Streamlit (Python Framework) Web Application.
