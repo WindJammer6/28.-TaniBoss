@@ -1,6 +1,6 @@
 # 28.-TaniBoss! 🌱💧
 <p align="center"> 
-  <img src="https://github.com/WindJammer6/18.-Deployed-Streamlit-Python-and-Firebase-Web-Application-Project-for-a-Karaoke-Event/blob/main/README%20images/Image%20of%20Streamlit%20(Python)%20Karaoke%20Singer%20Registration%20web%20application.jpg"  width="350" height="250">
+  <img src="https://github.com/WindJammer6/28.-TaniBoss/blob/main/Image%20of%20TaniBoss!.png"  width="350" height="250">
   <img src="https://github.com/WindJammer6/18.-Deployed-Streamlit-Python-and-Firebase-Web-Application-Project-for-a-Karaoke-Event/blob/main/README%20images/Image%20of%20Streamlit%20(Python)%20Karaoke%20Singer%20Registration%20web%20application.jpg"  width="350" height="250">
   <img src="https://github.com/WindJammer6/18.-Deployed-Streamlit-Python-and-Firebase-Web-Application-Project-for-a-Karaoke-Event/blob/main/README%20images/Image%20of%20Streamlit%20(Python)%20Karaoke%20Singer%20Registration%20web%20application.jpg"  width="350" height="250">
 </p>
@@ -26,7 +26,7 @@ Contributed to the problem statemenet formulation, design of the machine learnin
 (TaniBoss! is only a functional prototype and a proof of concept, hence some of the features is only shown as UI and doesnt actually work)  
 - Currently the forum feature in TaniBoss! is not connected to any database, hence questions and answers posted on the forum will not be saved and will all be deleted whenever TaniBoss! is rerun.
 - PetaniAI was created and trained using the Chatbase custom GPT LLM model API, which requires a paid subscription to maintain. However, I have stopped subscription and hence PetaniAI no longer works and will not be able to generate responses from prompts anymore
-- Since the prediction and farming conditions recommendation machine learning model is trained from a static database (the [Crop yield dataset CSV file](hi)) (add link!), rather than a realtime database, it does not actually take in new data input from the local farmers and retrain itself to update its parameters... (the inputs to 'Train the Model' in the 'Predictor' page in TaniBoss! does not actually do anything and is just shown as UI)
+- Since the prediction and farming conditions recommendation machine learning model is trained from a static database (the [Crop yield dataset CSV file](https://github.com/WindJammer6/28.-TaniBoss/blob/main/Crop%20yield%20dataset.csv)), rather than a realtime database, it does not actually take in new data input from the local farmers and retrain itself to update its parameters... (the inputs to 'Train the Model' in the 'Predictor' page in TaniBoss! does not actually do anything and is just shown as UI)
 - Inputs in the text boxes of the prediction and farming conditions recommendation machine learning model does not accept letters, only integers. It will throw an error if there is any non-integer inputs in any of the text boxes (was too lazy to solve the error due to time constraints)
 
 <br>
@@ -86,12 +86,11 @@ This file represents the authetication key. Apparently, when accessing to APIs (
 
 <br>
 
-**4. 'Image of PetaniAI logo.jpg', 'Image of PetaniAI user logo.jpg', 'Image of local hydroponic farm site analysis.jpg' and 'Image of plant diseases.jpg' files**
+**4. 'Image of PetaniAI logo.jpg', 'Image of PetaniAI user logo.jpg' and 'Image of local hydroponic farm site analysis.jpg' files**
 <p align="center"> 
-  <img src="https://github.com/WindJammer6/18.-Deployed-Streamlit-Python-and-Firebase-Web-Application-Project-for-a-Karaoke-Event/blob/main/README%20images/karaoke_poster.jpg"  width="450" height="200">
-  <img src="https://github.com/WindJammer6/18.-Deployed-Streamlit-Python-and-Firebase-Web-Application-Project-for-a-Karaoke-Event/blob/main/README%20images/karaoke_poster.jpg"  width="450" height="200">
-  <img src="https://github.com/WindJammer6/18.-Deployed-Streamlit-Python-and-Firebase-Web-Application-Project-for-a-Karaoke-Event/blob/main/README%20images/karaoke_poster.jpg"  width="450" height="200">
-  <img src="https://github.com/WindJammer6/18.-Deployed-Streamlit-Python-and-Firebase-Web-Application-Project-for-a-Karaoke-Event/blob/main/README%20images/karaoke_poster.jpg"  width="450" height="200">
+  <img src="https://github.com/WindJammer6/28.-TaniBoss/blob/main/Image%20of%20PetaniAI%20logo.jpg"  width="450" height="200">
+  <img src="https://github.com/WindJammer6/28.-TaniBoss/blob/main/Image%20of%20PetaniAI%20user%20logo.jpg"  width="450" height="200">
+  <img src="https://github.com/WindJammer6/28.-TaniBoss/blob/main/Image%20of%20local%20hydroponic%20farm%20site%20analysis.jpg"  width="450" height="200">
 </p>
 Images used for aesthetic purposes in the TaniBoss! Streamlit (Python Framework) Web Application.
 
