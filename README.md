@@ -57,6 +57,14 @@ nil
 
 <br>
 
+Programming Languages used:  
+![My Skills](https://go-skill-icons.vercel.app/api/icons?i=python)
+
+Frameworks used:  
+![My Skills](https://go-skill-icons.vercel.app/api/icons?i=streamlit)
+
+<br>
+
 ## Table of Contents
 Here is a directory to explain the purpose of each file in this repository:
 
