@@ -61,7 +61,7 @@ Programming Languages used:
 ![My Skills](https://go-skill-icons.vercel.app/api/icons?i=python)
 
 Frameworks used:  
-![My Skills](https://go-skill-icons.vercel.app/api/icons?i=streamlit)
+![My Skills](https://go-skill-icons.vercel.app/api/icons?i=streamlit) ![My Skills](https://go-skill-icons.vercel.app/api/icons?i=numpy) ![My Skills](https://go-skill-icons.vercel.app/api/icons?i=pandas) ![My Skills](https://go-skill-icons.vercel.app/api/icons?i=matplotlib) ![My Skills](https://go-skill-icons.vercel.app/api/icons?i=sklearn)
 
 <br>
 
